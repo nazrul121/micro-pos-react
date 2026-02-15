@@ -42,7 +42,7 @@ const Sidebar = ({ isCollapsed }) => {
     <aside className={`transition-all duration-300 bg-base-100 border-r border-base-300 flex flex-col z-40 relative ${isCollapsed ? 'w-20' : 'w-64'}`}>
       
       {/* BRANDING */}
-      <div className={`h-20 flex items-center border-b border-base-300 ${isCollapsed ? 'justify-center' : 'px-6'}`}>
+      <div className={`p-4 flex items-center border-b border-base-300 ${isCollapsed ? 'justify-center' : 'px-6'}`}>
         <h1 className="text-xl font-black tracking-tighter text-primary">
           {isCollapsed ? 'M' : 'Micro'}<span className="text-base-content">{isCollapsed ? 'P' : 'POS'}</span>
         </h1>
@@ -114,7 +114,7 @@ const Sidebar = ({ isCollapsed }) => {
       </nav>
 
       {/* FOOTER */}
-      <div className="p-4 border-t border-base-300">
+      <div className="p-2 border-t border-base-300">
         <button className={`btn btn-error btn-ghost h-10 ${isCollapsed ? 'btn-square btn-sm mx-auto flex' : 'w-full gap-3 btn-sm justify-start'}`}>
           <LogOut size={18} />
           {!isCollapsed && <span className="font-bold">Logout</span>}

@@ -24,12 +24,10 @@ const POS = () => {
       <div className="flex-1 flex flex-col min-w-0">
         
         {/* PRO SEARCH BAR */}
-        <div className="p-8 flex items-center gap-4">
+        <div className="p-2 flex items-center gap-4 mb-4">
           <div className="relative flex-1 group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-base-content/30 group-focus-within:text-primary transition-colors" size={18} />
-            <input 
-              type="text" 
-              placeholder="Search by name, category or scan barcode..." 
+            <input type="text" placeholder="Search by name, category or scan barcode..." 
               className="input w-full pl-12 bg-base-100 border-none rounded-2xl shadow-sm focus:ring-2 ring-primary/20 h-14 font-medium"
             />
             <div className="absolute right-4 top-1/2 -translate-y-1/2 badge badge-outline opacity-20 hidden md:block">Ctrl + F</div>
@@ -40,7 +38,7 @@ const POS = () => {
         </div>
 
         {/* REFINED PRODUCT GRID */}
-        <div className="flex-1 overflow-y-auto px-8 pb-8 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+        <div className="flex-1 overflow-y-auto px-3 Mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-5">
           {products.map((item) => (
             <div 
               key={item.id}
@@ -51,19 +49,26 @@ const POS = () => {
                 <img src={item.img} alt={item.name} 
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                 />
+                
+                {/* Category Badge */}
                 <div className="absolute top-3 left-3">
                   <span className="px-3 py-1 bg-black/40 backdrop-blur-md text-white text-[12px] font-black uppercase tracking-widest rounded-full">
                     {item.cat}
                   </span>
                 </div>
+
+                {/* Stock Badge - Ensure Tooltip has room */}
                 <div className="absolute top-3 right-3">
-                  <span data-tip="Stock" className="tooltip tooltip-bottom px-3 py-1 bg-black/40 backdrop-blur-md text-white text-[15px] font-bold uppercase tracking-widest rounded-full">
+                  <span 
+                    data-tip="Current Stock" 
+                    className="tooltip tooltip-left px-3 py-1 bg-black/40 backdrop-blur-md text-white text-[15px] font-bold uppercase tracking-widest rounded-full"
+                  >
                     {item.stock}
                   </span>
                 </div>
               </div>
 
-              {/* Title & Price Beside Each Other */}
+              {/* Title & Price Section */}
               <div className="px-2 flex items-center justify-between gap-4">
                 <div className="flex-1 min-w-0">
                   <h3 className="font-black text-sm text-base-content leading-tight truncate">
@@ -78,7 +83,7 @@ const POS = () => {
                 </div>
               </div>
 
-              {/* Quick Add Overlay on Hover */}
+              {/* Quick Add Button */}
               <div className="mt-4 flex gap-2">
                 <button className="btn btn-primary btn-sm flex-1 rounded-xl gap-2 font-black text-[10px] uppercase tracking-wider">
                   <Plus size={14} /> Add to Cart
@@ -90,20 +95,8 @@ const POS = () => {
       </div>
 
       {/* --- RIGHT: CHECKOUT SIDEBAR (GLASSMORPHISM) --- */}
-      <div className="w-[420px] bg-base-100 border-l border-base-300 flex flex-col relative shadow-[-20px_0_50px_rgba(0,0,0,0.02)]">
+      <div className="w-105 bg-base-100 border-l border-base-300 flex flex-col relative shadow-[-20px_0_50px_rgba(0,0,0,0.02)]">
         
-        {/* Customer Quick Switch */}
-        <div className="p-6 bg-primary/[0.03] border-b border-base-300 flex items-center gap-4">
-          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
-            <UserPlus size={20} />
-          </div>
-          <div className="flex-1">
-            <p className="text-[10px] font-black opacity-40 uppercase leading-none mb-1">Walking Customer</p>
-            <p className="text-xs font-bold">Add customer to earn points</p>
-          </div>
-          <button className="btn btn-ghost btn-circle btn-sm"><ScanLine size={18} /></button>
-        </div>
-
         {/* Cart Items */}
         <div className="flex-1 overflow-y-auto p-6 space-y-6">
           <div className="flex items-center gap-4 group">
@@ -121,30 +114,32 @@ const POS = () => {
         </div>
 
         {/* Final Payment Panel */}
-        <div className="p-8 space-y-4 bg-base-100 border-t-2 border-dashed border-base-300">
-          <div className="space-y-2">
-            <div className="flex justify-between text-xs font-bold opacity-40 uppercase tracking-widest">
-              <span>Subtotal</span>
-              <span className="text-base-content">$9.00</span>
+        <div className="p-4 md:p-6 lg:p-8 space-y-4 bg-base-100 border-t-2 border-dashed border-base-300">
+          
+          {/* PRICE SECTION: Stacked on mobile, side-by-side on md+ to save height */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-0">
+            <div className="hidden lg:block space-y-1"> {/* Subtotal only on large to keep mobile clean */}
+              <div className="flex justify-between text-[10px] font-black opacity-40 uppercase tracking-widest w-32">
+                <span>Subtotal</span>
+                <span className="text-base-content">$9.00</span>
+              </div>
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-2xl font-black italic">Total<span className="text-primary">.</span></span>
-              <span className="text-3xl font-black tracking-tighter tabular-nums text-primary">$9.90</span>
+
+            <div className="flex justify-between items-center w-full lg:w-auto lg:block text-right">
+              <span className="text-xl md:text-2xl font-black italic lg:hidden">Total<span className="text-primary">.</span></span>
+              <div className="flex flex-col items-end">
+                <span className="hidden lg:block text-[10px] font-black opacity-40 uppercase tracking-widest mb-1">Total Amount</span>
+                <span className="text-2xl md:text-3xl font-black tracking-tighter tabular-nums text-primary">
+                  $9.90
+                </span>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 pt-4">
-            <button className="btn btn-outline border-base-300 h-20 rounded-3xl flex flex-col group hover:border-primary">
-              <Banknote size={24} className="opacity-40 group-hover:text-primary transition-all" />
-              <span className="text-[10px] font-black uppercase mt-1">Cash Pay</span>
-            </button>
-            <button className="btn btn-primary h-20 rounded-3xl flex flex-col shadow-2xl shadow-primary/30">
-              <CreditCard size={24} />
-              <span className="text-[10px] font-black uppercase mt-1">Charge Card</span>
-            </button>
-          </div>
           
-          <button className="btn btn-neutral btn-lg w-full rounded-3xl font-black tracking-[0.2em] text-xs uppercase h-16">
+          
+          {/* MAIN ACTION: Full width, adjusted height */}
+          <button className="btn btn-neutral btn-md mt-2">
             Execute Order
           </button>
         </div>

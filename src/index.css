@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: [
+    {
+      light: {
+        ...require("daisyui/src/theming/themes")["light"],
+        primary: "#4f46e5", /* Modern Indigo */
+        "base-100": "#ffffff",
+        "base-200": "#f8fafc", /* Very light blue-grey background */
+      },
+    },
+    "night"
+  ];
+}
+
+/* Custom Tooltip Styling */
+.tooltip:before {
+  @apply bg-primary text-primary-content border-none shadow-xl px-3 py-2 text-xs rounded-lg;
+}
+
+/* Add a smooth fade-in for the tooltip */
+.tooltip:after {
+  @apply border-r-primary; /* Match the arrow color to primary */
+}

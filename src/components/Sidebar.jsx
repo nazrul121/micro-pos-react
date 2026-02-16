@@ -43,10 +43,26 @@ const Sidebar = ({ isCollapsed }) => {
       
       {/* BRANDING */}
       <div className={`p-4 flex items-center border-b border-base-300 ${isCollapsed ? 'justify-center' : 'px-6'}`}>
-        <h1 className="text-xl font-black tracking-tighter text-primary">
-          {isCollapsed ? 'M' : 'Micro'}<span className="text-base-content">{isCollapsed ? 'P' : 'POS'}</span>
-        </h1>
+        <div className="flex flex-col">
+          <h1 className="text-xl font-black tracking-tighter text-primary leading-none">
+            {isCollapsed ? 'M' : 'Micro'}<span className="text-base-content">{isCollapsed ? 'P' : 'POS'}</span>
+          </h1>
+          
+          {!isCollapsed && (
+            <div className="flex items-center gap-1 mt-1">
+              <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse"></span>
+              <span className="text-[9px] font-black uppercase opacity-40 tracking-widest">
+                Station #04
+              </span>
+            </div>
+          )}
+          
+          {isCollapsed && (
+            <span className="text-[8px] font-black text-primary mt-1">Sta: 4</span>
+          )}
+        </div>
       </div>
+      
 
       {/* NAVIGATION */}
       <nav className={`flex-1 px-3 py-6 space-y-2 ${isCollapsed ? 'overflow-visible' : 'overflow-y-auto'}`}>
@@ -55,14 +71,12 @@ const Sidebar = ({ isCollapsed }) => {
           const isOpen = openMenus[item.label];
           
           // Check if this item is active based on URL
-          const isActive = location.pathname === item.path || 
-                           (hasSubItems && location.pathname.startsWith(item.path));
+          const isActive = location.pathname === item.path || (hasSubItems && location.pathname.startsWith(item.path));
 
           return (
             <div key={index} className="relative group/menu">
               {/* Change button to Link if no subItems, or keep as button for toggle */}
-              <Link
-                to={hasSubItems ? '#' : item.path}
+              <Link to={hasSubItems ? '#' : item.path}
                 onClick={(e) => {
                     if(hasSubItems) {
                         e.preventDefault();
@@ -70,8 +84,7 @@ const Sidebar = ({ isCollapsed }) => {
                     }
                 }}
                 className={`w-full flex items-center rounded-xl transition-all duration-200 h-12 relative
-                  ${isCollapsed ? 'justify-center' : 'px-4 gap-4'}
-                  ${isActive ? 'bg-primary text-primary-content shadow-lg shadow-primary/20' : 'hover:bg-base-200 text-base-content/70'} 
+                  ${isCollapsed ? 'justify-center' : 'px-4 gap-4'} ${isActive ? 'bg-primary text-primary-content shadow-lg shadow-primary/20' : 'hover:bg-base-200 text-base-content/70'} 
                 `}
               >
                 <span className={`${isActive ? '' : 'group-hover/menu:text-primary'}`}>
